@@ -1,5 +1,8 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Main from '../../components/Main.astro';
+import H1 from '../../components/H1.astro';
 
 interface Props {
   post: CollectionEntry<'posts'>;
@@ -13,14 +16,29 @@ export const getStaticPaths = async () => {
       slug: post.slug,
     },
     props: {
-      post
-    }
+      post,
+    },
   }));
 
   return paths;
 };
 
 const { post } = Astro.props;
+const { Content, headings } = await post.render();
 ---
 
-<div>{post.data.title}</div>
+<Layout title={post.data.title}>
+  <Main>
+    <a href="/blog" class="text-zinc-500 text-2xl mb-16 underline inline-block"
+      >Back to all blog</a
+    >
+    <H1>{post.data.title}</H1>
+    <p>{post.data.author}</p>
+    <img
+      src={post.data.image}
+      alt={post.data.title}
+      class="rounded-2xl shadow-xl mb-28 aspect-thumbnail object-cover"
+    />
+    <Content />
+  </Main>
+</Layout>
