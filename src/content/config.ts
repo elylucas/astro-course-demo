@@ -1,7 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { format } from 'date-fns';
 
-const blogCollection = defineCollection({
+const postsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     author: z.string(),
@@ -13,5 +13,5 @@ const blogCollection = defineCollection({
 });
 
 export const collections = {
-  posts: blogCollection,
+  posts: postsCollection,
 };
