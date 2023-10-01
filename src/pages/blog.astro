@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import PostList from '../components/PostList.astro';
 
 const allPosts = await getCollection('posts');
 console.log({ allPosts });
@@ -12,16 +13,6 @@ console.log({ allPosts });
     <p class="text-zinc-900 text-2xl mb-24 max-sm:mb-14">
       Join the community and learn stuff.
     </p>
-    <ul>
-      {allPosts.map(post => {
-        return (
-          <li class="mb-10">
-            <a href={`/blog/${post.slug}`} class="text-2xl font-bold">
-              {post.data.title}
-            </a>
-          </li>
-        );
-      })}
-    </ul>
+    <PostList posts={allPosts} />
   </main>
 </Layout>
