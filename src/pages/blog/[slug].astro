@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Main from '../../components/Main.astro';
 import H1 from '../../components/H1.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
 
 interface Props {
   post: CollectionEntry<'posts'>;
@@ -24,7 +25,7 @@ export const getStaticPaths = async () => {
 };
 
 const { post } = Astro.props;
-const { Content, headings } = await post.render();
+const { Content, headings, remarkPluginFrontmatter } = await post.render();
 ---
 
 <Layout title={post.data.title}>
@@ -39,8 +40,11 @@ const { Content, headings } = await post.render();
       alt={post.data.title}
       class="rounded-2xl shadow-xl mb-28 aspect-thumbnail object-cover"
     />
-    <div class="prose prose-2xl overflow-visible relative">
-      <Content />
+    <div class="relative flex gap-x-12">
+      <div class="prose prose-2xl overflow-visible relative">
+        <Content />
+      </div>
+      <TableOfContents headings={headings} />
     </div>
   </Main>
 </Layout>
