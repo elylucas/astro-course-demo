@@ -15,7 +15,7 @@ export const getStaticPaths = async () => {
     new Set(posts.flatMap((post) => post.data.categories))
   );
 
-  console.log({categories})
+  console.log({ categories });
 
   const paths = categories.map((category) => {
     const postsByCategory = posts.filter((post) =>
@@ -52,12 +52,9 @@ const { category, posts } = Astro.props;
     <p class="text-zinc-900 text-2xl mb-24 max-sm:mb-14">
       Join the community and learn stuff.
     </p>
-    <div class="mb-12 grid grid-cols-[auto,1fr] gap-x-14 gap-y-3">
-      <h2 class="font-bold text-5xl text-teal-900">Posts Tagged</h2>
-      <CategoryList categories={[category]} />
-    </div>
+
+    <CategoryList title="Posts Tagged" categories={[category]} />
 
     <PostList posts={posts} />
-
   </Main>
 </Layout>

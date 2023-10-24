@@ -20,7 +20,9 @@ type Props = {
 const { page } = Astro.props;
 const posts = page.data as CollectionEntry<'posts'>[];
 const allPosts = await getCollection('posts');
-const allCategories = Array.from(new Set(allPosts.flatMap((post) => post.data.categories)));
+const allCategories = Array.from(
+  new Set(allPosts.flatMap((post) => post.data.categories))
+);
 ---
 
 <Layout title="Blog - Rhythm Nation">
@@ -29,10 +31,8 @@ const allCategories = Array.from(new Set(allPosts.flatMap((post) => post.data.ca
     <p class="text-zinc-900 text-2xl mb-24 max-sm:mb-14">
       Join the community and learn stuff.
     </p>
-    <div class="mb-12 grid grid-cols-[auto,1fr] gap-x-14 gap-y-3">
-      <h2 class="font-bold text-5xl text-teal-900">Tags</h2>
-      <CategoryList categories={allCategories} />
-    </div>
+
+    <CategoryList title="Tags" categories={allCategories} />
 
     <PostList posts={posts} />
     <div class="mb-12">
