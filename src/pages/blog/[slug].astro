@@ -29,10 +29,10 @@ const { post } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await post.render();
 ---
 
-<Layout title={post.data.title}>
+<Layout title={post.data.title} image={post.data.image} description={post.data.description}>
   <Main>
-    <a href="/blog" class="text-zinc-500 text-2xl mb-16 underline inline-block"
-      >Back to all blog</a
+    <a href="/blog" class="text-zinc-500 text-2xl mb-16 underline block"
+      >← Back to all blogs</a
     >
     <H1>{post.data.title}</H1>
     <p>{post.data.author}</p>
