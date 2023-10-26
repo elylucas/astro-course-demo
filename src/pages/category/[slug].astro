@@ -15,8 +15,6 @@ export const getStaticPaths = async () => {
     new Set(posts.flatMap((post) => post.data.categories))
   );
 
-  console.log({ categories });
-
   const paths = categories.map((category) => {
     const postsByCategory = posts.filter((post) =>
       post.data.categories.includes(category)

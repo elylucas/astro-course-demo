@@ -5,6 +5,7 @@ import Main from '../../components/Main.astro';
 import H1 from '../../components/H1.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
 import Share from '../../components/Share.astro';
+import { Image } from 'astro:assets';
 
 interface Props {
   post: CollectionEntry<'posts'>;
@@ -36,9 +37,11 @@ const { Content, headings, remarkPluginFrontmatter } = await post.render();
     >
     <H1>{post.data.title}</H1>
     <p>{post.data.author}</p>
-    <img
+    <Image
       src={post.data.image}
       alt={post.data.title}
+      width={1088}
+      height={1088 / 1.5}
       class="rounded-2xl shadow-xl mb-28 aspect-thumbnail object-cover"
     />
     <div class="mb-10">

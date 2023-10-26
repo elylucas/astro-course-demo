@@ -3,7 +3,7 @@ author: dwight-schrute
 categories: ["studio tips"]
 date: 08/10/2021
 featured: false
-image: /images/studio.jpg
+image: ./images/studio.jpg
 title: Making a home studio
 description: A guide to making a home studio on a budget.
 ---
