@@ -9,36 +9,41 @@ import CategoryList from '../../components/CategoryList.astro';
 import Pagination from '../../components/Pagination.astro';
 import PostList from '../../components/PostList.astro';
 
-export const getStaticPaths = async () => {
-  const posts = await getCollection('posts');
-  const categories = Array.from(
-    new Set(posts.flatMap((post) => post.data.categories))
-  );
+// export const getStaticPaths = async () => {
+//   const posts = await getCollection('posts');
+//   const categories = Array.from(
+//     new Set(posts.flatMap((post) => post.data.categories))
+//   );
 
-  const paths = categories.map((category) => {
-    const postsByCategory = posts.filter((post) =>
-      post.data.categories.includes(category)
-    );
-    return {
-      params: {
-        slug: category,
-      },
-      props: {
-        category,
-        posts: postsByCategory,
-      },
-    };
-  });
+//   const paths = categories.map((category) => {
+//     const postsByCategory = posts.filter((post) =>
+//       post.data.categories.includes(category)
+//     );
+//     return {
+//       params: {
+//         slug: category,
+//       },
+//       props: {
+//         category,
+//         posts: postsByCategory,
+//       },
+//     };
+//   });
 
-  return paths;
-};
+//   return paths;
+// };
 
-type Props = {
-  category: string;
-  posts: CollectionEntry<'posts'>[];
-};
+// type Props = {
+//   category: string;
+//   posts: CollectionEntry<'posts'>[];
+// };
 
-const { category, posts } = Astro.props;
+// const { category, posts } = Astro.props;
+const category = Astro.params.slug as string;
+const allPosts = await getCollection('posts');
+const posts = allPosts.filter((post) =>
+  post.data.categories.includes(category)
+);
 ---
 
 <Layout title="Blog - Rhythm Nation">
@@ -52,7 +57,6 @@ const { category, posts } = Astro.props;
     </p>
 
     <CategoryList title="Posts Tagged" categories={[category]} />
-
-    <PostList posts={posts} />
+    {posts.length === 0 ? <p>No posts found</p> : <PostList posts={posts} />}
   </Main>
 </Layout>

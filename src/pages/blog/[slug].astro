@@ -1,5 +1,5 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry, getEntryBySlug } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Main from '../../components/Main.astro';
 import H1 from '../../components/H1.astro';
@@ -7,27 +7,31 @@ import TableOfContents from '../../components/TableOfContents.astro';
 import Share from '../../components/Share.astro';
 import { Image } from 'astro:assets';
 
-interface Props {
-  post: CollectionEntry<'posts'>;
+// interface Props {
+//   post: CollectionEntry<'posts'>;
+// }
+
+// export const getStaticPaths = async () => {
+//   const posts = await getCollection('posts');
+
+//   const paths = posts.map((post) => ({
+//     params: {
+//       slug: post.slug,
+//     },
+//     props: {
+//       post,
+//     },
+//   }));
+
+//   return paths;
+// };
+
+// const { post } = Astro.props;
+const post = await getEntryBySlug('posts', Astro.params.slug!);
+if(!post) {
+  return Astro.redirect('/404');
 }
-
-export const getStaticPaths = async () => {
-  const posts = await getCollection('posts');
-
-  const paths = posts.map((post) => ({
-    params: {
-      slug: post.slug,
-    },
-    props: {
-      post,
-    },
-  }));
-
-  return paths;
-};
-
-const { post } = Astro.props;
-const { Content, headings, remarkPluginFrontmatter } = await post.render();
+const { Content, headings } = await post.render();
 ---
 
 <Layout title={post.data.title} image={post.data.image} description={post.data.description}>

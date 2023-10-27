@@ -1,9 +1,12 @@
 import { defineConfig } from 'astro/config';
-
 import tailwind from "@astrojs/tailwind";
+
+import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind()],
-  site: 'https://rhythm.nation'
+  site: 'https://astro-course-demo-ivory.vercel.app',
+  output: 'server',
+  adapter: vercel()
 });

@@ -6,13 +6,23 @@ import '@fontsource/cabin';
 export interface Props {
   title?: string;
   description?: string;
-  image?: string;
+  image?: {
+    src: string;
+    width: number;
+    height: number;
+    format: 'png' | 'jpg' | 'jpeg' | 'tiff' | 'webp' | 'gif' | 'svg' | 'avif';
+  };
 }
 
 const {
   title = 'Rhythm Nation',
   description = 'A blog',
-  image = '/images/drums.png',
+  image = {
+    src: '/images/drums.png',
+    width: 512,
+    height: 512,
+    format: 'svg',
+  }
 } = Astro.props;
 ---
 
@@ -28,14 +38,14 @@ const {
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
+    <meta property="og:image" content={image.src} />
     <meta property="og:image:alt" content={description} />
 
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={image} />
+    <meta property="twitter:image" content={image.src} />
     <meta property="twitter:image:alt" content={description} />
     <title>{title}</title>
   </head>
