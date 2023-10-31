@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets';
+import { getEntryBySlug, type CollectionEntry } from 'astro:content';
+
+type Props = {
+  post: CollectionEntry<'posts'>;
+};
+
+const { post } = Astro.props;
+const author = await getEntryBySlug('authors', post.data.author);
+
+if (!author) {
+  return Astro.redirect('/404');
+}
+---
+
+<div class="flex justify-between items-center mb-10">
+  <div class="flex items-center gap-x-2">
+    <a href={`/authors/${author.slug}`}>
+      <Image
+        src={author.data.image}
+        alt={author.data.name}
+        width={48}
+        height={48}
+        format="webp"
+        class="rounded-full border-2 border-teal-500 aspect-square object-cover w-12"
+      />
+    </a>
+    <div class="flex justify-normal items-center flex-1">
+      <a
+        href={`/author/${author.slug}`}
+        class="text-zinc900 text-xl font-bold"
+      >
+        <p class="text-gray-900 leading-none">{author.data.name}</p>
+      </a>
+      <span class="text-zinc-700 text-xl">{post.data.date}</span>
+    </div>
+  </div>
+</div>
