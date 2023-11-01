@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Ely-Lucas-s-workspace-t3pc8d.us-west-2.xata.sh/db/astro-course-demo",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
